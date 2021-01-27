@@ -1,0 +1,45 @@
+name: 'Echo Function CI-CD Pipeline $(Date:yyyyMMdd)-$(Rev:rr)'
+
+pr: none
+
+trigger:
+  - main
+    
+pool:
+  vmImage: 'ubuntu-20.04'
+  
+variables:
+  - name: buildConfiguration
+    value: 'Release'
+  - name: appWorkingDir
+    value: '$(System.DefaultWorkingDirectory)/src/echo_api'
+
+stages:
+  - stage: build_application
+    displayName: 'Build and Pack Azure Function App'
+    dependsOn: [ ]
+    jobs:
+      - job: Build
+        steps:
+          - checkout: self
+            displayName: 'Checkout code'
+            fetchDepth: 1
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Build Azure Function'
+            inputs:
+              command: 'build'
+              projects: '$(appWorkingDir)/*.csproj'
+              arguments: '--output $(System.DefaultWorkingDirectory)/publish_output --configuration $(buildConfiguration)'
+          - task: ArchiveFiles@2
+            displayName: 'Archive files'
+            inputs:
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/publish_output'
+              includeRootFolder: false
+              archiveType: zip
+              archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+              replaceExistingArchive: true
+
+          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+            displayName: 'Publish Artifact'
+            artifact: drop
