@@ -10,3 +10,7 @@ variable "personal_access_token" {
 variable "git_hub_pat" {
   type = string
 }
+
+variable "git_hub_repo_id" {
+  type = string
+}

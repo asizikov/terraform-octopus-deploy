@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{77796E4E-9918-463D-949A-E2DBFB46934E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{80CC29E9-0DB2-44C5-A73C-D1611F0E9FD6}"
+ProjectSection(SolutionItems) = preProject
+	build\pipeline.yaml = build\pipeline.yaml
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "echo_api", "src\echo_api\echo_api.csproj", "{51C9CCF1-4BA6-410C-A16E-930A7B5ED0A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51C9CCF1-4BA6-410C-A16E-930A7B5ED0A6} = {77796E4E-9918-463D-949A-E2DBFB46934E}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51C9CCF1-4BA6-410C-A16E-930A7B5ED0A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51C9CCF1-4BA6-410C-A16E-930A7B5ED0A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51C9CCF1-4BA6-410C-A16E-930A7B5ED0A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51C9CCF1-4BA6-410C-A16E-930A7B5ED0A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
