@@ -22,3 +22,17 @@ resource "octopusdeploy_deployment_target" "azure" {
     account_id          = octopusdeploy_azure_service_principal.azure.id
   }
 }
+
+resource "octopusdeploy_lifecycle" "default" {
+  name = "Default Lifecycle"
+}
+
+resource "octopusdeploy_project_group" "default" {
+  name = "Default Project Group"
+}
+
+resource "octopusdeploy_project" "echo-api" {
+  name = "Echo Api"
+  lifecycle_id = octopusdeploy_lifecycle.default.id
+  project_group_id = octopusdeploy_project_group.default.id
+}

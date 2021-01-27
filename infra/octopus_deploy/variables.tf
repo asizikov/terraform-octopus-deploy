@@ -10,14 +10,6 @@ variable "serverURL" {
   type = string
 }
 
-variable "variableSetName" {
-  type = string
-}
-
-variable "description" {
-  type = string
-}
-
 variable "environmentName" {
   type = string
 }

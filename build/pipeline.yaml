@@ -44,7 +44,7 @@ stages:
               archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
               replaceExistingArchive: true
 
-          - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          - publish: $(Build.ArtifactStagingDirectory)/func.0.0.$(Build.BuildId).zip
             displayName: 'Publish Artifact'
             artifact: drop
             
@@ -61,5 +61,5 @@ stages:
             inputs:
               OctoConnectedServiceName: $(octopusConnection)
               Space: '$(octopusSpaces)'
-              Package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+              Package: '$(Pipeline.Workspace)/drop/func.0.0.$(Build.BuildId).zip'
               Replace: 'false'            
