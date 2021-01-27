@@ -55,6 +55,8 @@ stages:
     jobs:
       - job: octopus
         steps:
+          - download: current
+            artifact: 'drop'
           - task: OctopusPush@4
             inputs:
               OctoConnectedServiceName: $(octopusConnection)
