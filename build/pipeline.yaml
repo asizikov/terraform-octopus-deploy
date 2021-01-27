@@ -13,6 +13,10 @@ variables:
     value: 'Release'
   - name: appWorkingDir
     value: '$(System.DefaultWorkingDirectory)/src/echo_api'
+  - name: octopusConnection
+    value: 'Cloud-Eng Octopus'
+  - name: octopusSpaces
+    value: 'Spaces-1'
 
 stages:
   - stage: build_application
@@ -43,3 +47,17 @@ stages:
           - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
             displayName: 'Publish Artifact'
             artifact: drop
+            
+  - stage: octopus_deploy
+    displayName: 'Prepare release and Deploy'
+    dependsOn:
+      - build_application
+    jobs:
+      - job: octopus
+        steps:
+          - task: OctopusPush@4
+            inputs:
+              OctoConnectedServiceName: $(octopusConnection)
+              Space: '$(octopusSpaces)'
+              Package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+              Replace: 'false'            
