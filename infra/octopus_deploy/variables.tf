@@ -31,9 +31,9 @@ variable "azure_password" {
 }
 
 variable "azure_web_app_rg_name" {
-    type = string
+  type = string
 }
 
 variable "azure_web_app_name" {
-    type = string
+  type = string
 }
