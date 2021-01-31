@@ -50,8 +50,8 @@ stages:
             displayName: 'Publish Artifact'
             artifact: drop
             
-  - stage: octopus_deploy
-    displayName: 'Prepare release and Deploy'
+  - stage: octopus_deploy_release
+    displayName: 'Prepare release'
     dependsOn:
       - build_application
     jobs:
@@ -79,7 +79,16 @@ stages:
               ProjectGroup: 'ProjectGroups-7'
               ProjectName: '$(octopusProject)'
               ReleaseNumber: '0.0.$(Build.BuildId)'
+  
+  - stage: octopus_deploy_deployment
+    displayName: 'Deploy release'
+    dependsOn:
+      - octopus_deploy_release
+    jobs:
+      - job:
+        steps:
           - task: OctopusDeployRelease@4
+            displayName: 'Deploy release 0.0.${{ Build.BuildId }}'
             inputs:
               OctoConnectedServiceName: $(octopusConnection)
               Space: '$(octopusSpaces)'
@@ -87,3 +96,5 @@ stages:
               Project: '$(octopusProject)'
               ReleaseNumber: '0.0.$(Build.BuildId)'
               Environments: 'Environments-7'
+              ShowProgress: true
+
