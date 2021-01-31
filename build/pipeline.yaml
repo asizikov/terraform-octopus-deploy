@@ -17,6 +17,8 @@ variables:
     value: 'Cloud-Eng Octopus'
   - name: octopusSpaces
     value: 'Spaces-1'
+  - name: octopusProject
+    value: 'Projects-8'
 
 stages:
   - stage: build_application
@@ -62,10 +64,26 @@ stages:
               OctoConnectedServiceName: $(octopusConnection)
               Space: '$(octopusSpaces)'
               Package: '$(Pipeline.Workspace)/drop/func.0.0.$(Build.BuildId).zip'
-              Replace: 'false'          
+              Replace: 'false' 
+          - task: OctopusMetadata@4
+            inputs:
+              OctoConnectedServiceName: $(octopusConnection)
+              Space: '$(octopusSpaces)'
+              PackageId: 'func'
+              PackageVersion: '0.0.$(Build.BuildId)'
+              Replace: 'true'         
           - task: OctopusCreateRelease@4
             inputs:
               OctoConnectedServiceName: $(octopusConnection)
-              Space: 'Spaces-1'
+              Space: '$(octopusSpaces)'
               ProjectGroup: 'ProjectGroups-7'
-              ProjectName: 'Projects-8'
+              ProjectName: '$(octopusProject)'
+              ReleaseNumber: '0.0.$(Build.BuildId)'
+          - task: OctopusDeployRelease@4
+            inputs:
+              OctoConnectedServiceName: $(octopusConnection)
+              Space: '$(octopusSpaces)'
+              ProjectGroup: 'ProjectGroups-7'
+              Project: '$(octopusProject)'
+              ReleaseNumber: '0.0.$(Build.BuildId)'
+              Environments: 'Environments-7'
