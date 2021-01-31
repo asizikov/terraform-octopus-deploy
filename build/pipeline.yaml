@@ -41,7 +41,7 @@ stages:
               rootFolderOrFile: '$(System.DefaultWorkingDirectory)/publish_output'
               includeRootFolder: false
               archiveType: zip
-              archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+              archiveFile: $(Build.ArtifactStagingDirectory)/func.0.0.$(Build.BuildId).zip
               replaceExistingArchive: true
 
           - publish: $(Build.ArtifactStagingDirectory)/func.0.0.$(Build.BuildId).zip

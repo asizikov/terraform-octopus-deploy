@@ -22,11 +22,6 @@ resource "octopusdeploy_azure_web_app_deployment_target" "echo_function" {
   environments                      = [octopusdeploy_environment.test.id]
 }
 
-data "octopusdeploy_feeds" "builtin" {
-  feed_type = "BuiltIn"
-}
-
-
 resource "octopusdeploy_lifecycle" "default" {
   name = "Default Lifecycle"
 }
@@ -40,6 +35,10 @@ resource "octopusdeploy_project" "echo-api" {
   name             = "Echo Api"
   lifecycle_id     = octopusdeploy_lifecycle.default.id
   project_group_id = octopusdeploy_project_group.default.id
+}
+
+data "octopusdeploy_feeds" "builtin" {
+  feed_type = "BuiltIn"
 }
 
 data "octopusdeploy_machine_policies" "default" {
