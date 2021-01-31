@@ -62,4 +62,10 @@ stages:
               OctoConnectedServiceName: $(octopusConnection)
               Space: '$(octopusSpaces)'
               Package: '$(Pipeline.Workspace)/drop/func.0.0.$(Build.BuildId).zip'
-              Replace: 'false'            
+              Replace: 'false'          
+          - task: OctopusCreateRelease@4
+            inputs:
+              OctoConnectedServiceName: $(octopusConnection)
+              Space: 'Spaces-1'
+              ProjectGroup: 'ProjectGroups-7'
+              ProjectName: 'Projects-8'
