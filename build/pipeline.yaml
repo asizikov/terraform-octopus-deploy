@@ -88,7 +88,7 @@ stages:
       - job:
         steps:
           - task: OctopusDeployRelease@4
-            displayName: 'Deploy release 0.0.${{ Build.BuildId }}'
+            displayName: 'Deploy release 0.0.${{ variables.Build.BuildId }}'
             inputs:
               OctoConnectedServiceName: $(octopusConnection)
               Space: '$(octopusSpaces)'
